@@ -32,9 +32,9 @@
     public boolean equals(Object other) {
         if(other instanceof Polynomial) {
             Polynomial p = (Polynomial) other;
-            return this.evaluate(new Integer(15)) == p.evaluate(new Integer(15)) &&
-                this.evaluate(new Integer(0)) == p.evaluate(new Integer(0)) &&
-                this.evaluate(new Integer(-15)) == p.evaluate(new Integer(-15));
+            return this.evaluate(new Integer(15)).equals(p.evaluate(new Integer(15))) &&
+                this.evaluate(new Integer(0)).equals(p.evaluate(new Integer(0))) &&
+                this.evaluate(new Integer(-15)).equals(p.evaluate(new Integer(-15)));
         }
         return false;
     }
