@@ -1,0 +1,158 @@
+/////////// RATIONAL / INTEGER EQUALS
+  private double get_value(Scalar x){
+          if (x.getClass() == main.Integer.class){
+              return ((double) ((main.Integer) x).getNumber());
+          }
+          else return ((double)((Rational) x).getNumerator())/((double)((Rational) x).getDenominator()) ;
+      }
+
+
+      public boolean equals(Object object){
+          if(!(object instanceof Scalar)){
+              return false;
+          }
+          return get_value(this) == get_value((Scalar)object);
+      }
+
+
+/////////// MONOMIAL EQUALS
+    public boolean equals(Object object) {
+        if(!(object instanceof Monomial)){
+            return false;
+        }
+        Monomial m = (Monomial) object;
+        if(m.coefficient.equals(new Integer(0)) && coefficient.equals(new Integer(0))){
+            return true;
+        }
+        return m.exponent == exponent && coefficient.equals(m.coefficient);
+    }
+
+
+/////////// POLYNOMIAL EQUALS -- using evaluate
+    public boolean equals(Object other) {
+        if(other instanceof Polynomial) {
+            Polynomial p = (Polynomial) other;
+            return this.evaluate(new Integer(15)) == p.evaluate(new Integer(15)) &&
+                this.evaluate(new Integer(0)) == p.evaluate(new Integer(0)) &&
+                this.evaluate(new Integer(-15)) == p.evaluate(new Integer(-15));
+        }
+        return false;
+    }
+
+
+
+/////////// POLYNOMIAL EQUALS -- for poly that holds monomials as map
+    private double get_value(Scalar x){
+        if (x.getClass() == Integer.class){
+            return ((double) ((Integer) x).getNumber());
+        }
+        else return ((double)((Rational) x).getNumerator())/((double)((Rational) x).getDenominator()) ;
+    }
+
+    public boolean equals(Object other) {
+        if(other instanceof Polynomial) {
+            boolean res = true;
+            for (java.lang.Integer i : monomials.keySet()) {
+                if (get_value(monomials.get(i).getCoefficient()) == 0) {
+                    continue;
+                }
+                if (!((Polynomial) other).monomials.keySet().contains(i)) {
+                    return false;
+                }
+                if (!((Polynomial) other).monomials.get(i).equals(monomials.get(i))) {
+                    return false;
+                }
+            }
+            for (java.lang.Integer i : ((Polynomial) other).monomials.keySet()) {
+                if (get_value(((Polynomial) other).monomials.get(i).getCoefficient()) == 0) {
+                    continue;
+                }
+                if (!monomials.keySet().contains(i)) {
+                    return false;
+                }
+                if (!((Polynomial) other).monomials.get(i).equals(monomials.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+/////////// POLYNOMIAL EQUALS -- for poly that holds monomials as list
+     private double get_value(Scalar x){
+            if (x.getClass() == Integer.class){
+                return ((double) ((Integer) x).getNumber());
+            }
+            else return ((double)((Rational) x).getNumerator())/((double)((Rational) x).getDenominator()) ;
+        }
+
+        public boolean equals(Object other) {
+            if(other instanceof Polynomial) {
+                boolean res = true;
+                for (int i = 0; i<monomials.size(); i++) {
+                    if (get_value(monomials.get(i).getCoefficient()) == 0) {
+                        continue;
+                    }
+                    if (((Polynomial) other).monomials.size() <= i) {
+                        return false;
+                    }
+                    if (!((Polynomial) other).monomials.get(i).equals(monomials.get(i))) {
+                        return false;
+                    }
+                }
+                for (int i = 0; i<((Polynomial) other).monomials.size(); i++) {
+                    if (get_value(((Polynomial) other).monomials.get(i).getCoefficient()) == 0) {
+                        continue;
+                    }
+                    if (monomials.size() <= i) {
+                        return false;
+                    }
+                    if (!((Polynomial) other).monomials.get(i).equals(monomials.get(i))) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+
+/////////// POLYNOMIAL EQUALS -- for poly that holds monomials as array
+        private double get_value(Scalar x){
+                if (x.getClass() == Integer.class){
+                    return ((double) ((Integer) x).getNumber());
+                }
+                else return ((double)((Rational) x).getNumerator())/((double)((Rational) x).getDenominator()) ;
+            }
+
+            public boolean equals(Object other) {
+                if(other instanceof Polynomial) {
+                    boolean res = true;
+                    for (int i = 0; i<monomials.length; i++) {
+                        if (get_value(monomials[i].getCoefficient()) == 0) {
+                            continue;
+                        }
+                        if (((Polynomial) other).monomials.length <= i) {
+                            return false;
+                        }
+                        if (!((Polynomial) other).monomials[i].equals(monomials[i])) {
+                            return false;
+                        }
+                    }
+                    for (int i = 0; i<((Polynomial) other).monomials.length; i++) {
+                        if (get_value(((Polynomial) other).monomials[i].getCoefficient()) == 0) {
+                            continue;
+                        }
+                        if (monomials.length <= i) {
+                            return false;
+                        }
+                        if (!((Polynomial) other).monomials[i].equals(monomials[i])) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
